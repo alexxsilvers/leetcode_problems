@@ -23,12 +23,23 @@ func TestBinarySearch(t *testing.T) {
 			item: -1,
 			want: -1,
 		},
+		{
+			list: []int{1},
+			item: 44,
+			want: -1,
+		},
+		{
+			list: []int{},
+			item: 10,
+			want: -1,
+		},
 	}
 
 	for _, tt := range tests {
 		t.Run("", func(t *testing.T) {
-			if BinarySearch(tt.list, tt.item) != tt.want {
-				t.Errorf("BinarySearch() not passed. List %#v, item %d", tt.list, tt.item)
+			got := BinarySearch(tt.list, tt.item)
+			if got != tt.want {
+				t.Errorf("BinarySearch() not passed. List %#v, item %d, got %d, want %d", tt.list, tt.item, got, tt.want)
 			}
 		})
 	}

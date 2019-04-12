@@ -1,60 +1,78 @@
-package binary_search_tree
+package main
 
-import (
-	"fmt"
-)
+import "github.com/davecgh/go-spew/spew"
 
-type node struct {
-	data int
-	left *node
-	right *node
+type BinarySearchTree interface {
+	Add(item int)
+	Contains(item int) bool
+	Remove(item int) bool
+	PreOrderTraversal(func(node *Node))
+	PostOrderTraversal(func(node *Node))
+	InOrderTraversal(func(node *Node))
+	Clear()
 }
 
-func NewNode(data int) *node {
-	return &node{
-		data: data,
+func main() {
+	bst := BST{}
+	bst.Add(5)
+	bst.Add(7)
+	bst.Add(3)
+	bst.Add(13)
+	bst.Add(6)
+	bst.Add(10)
+
+	spew.Dump(bst)
+}
+
+func NewNode(item int) *Node {
+	return &Node{
+		value: item,
 	}
 }
 
-func Insert(root *node, data int) *node {
-	if root == nil {
-		return NewNode(data)
-	}
-
-	if data < root.data {
-		root.left = Insert(root.left, data)
-	} else if data > root.data {
-		root.right = Insert(root.right, data)
-	}
-
-	return root
+type Node struct {
+	value int
+	left *Node
+	right *Node
 }
 
-func Search(root *node, item int) int {
-	if root == nil {
+func (n *Node) CompareTo(value int) int {
+	if value == n.value {
+		return 0
+	}
+
+	if n.value > value {
 		return -1
 	}
 
-	if item == root.data {
-		return root.data
-	}
-
-	if item < root.data {
-		return Search(root.left, item)
-	}
-
-	if item > root.data {
-		return Search(root.right, item)
-	}
-
-	return -1
+	return 1
 }
 
-func InOrder(root *node) {
-	if root == nil {
-		return
+type BST struct {
+	head *Node
+}
+
+func (bst *BST) Add(item int) {
+	if bst.head == nil {
+		bst.head = NewNode(item)
+	} else {
+		bst.add(bst.head, item)
 	}
-	InOrder(root.left)
-	fmt.Printf("->%d", root.data)
-	InOrder(root.right)
+}
+
+// recursive add
+func (bst *BST) add(node *Node, item int) {
+	if node.CompareTo(item) < 0 {
+		if node.left == nil {
+			node.left = NewNode(item)
+		} else {
+			bst.add(node.left, item)
+		}
+	} else {
+		if node.right == nil {
+			node.right = NewNode(item)
+		} else {
+			bst.add(node.right, item)
+		}
+	}
 }

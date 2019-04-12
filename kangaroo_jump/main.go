@@ -14,8 +14,8 @@ func main() {
 }
 
 type kangaroo struct {
-	x int
-	v int
+	start int
+	speed int
 }
 
 func meetAtPoint(first kangaroo, second kangaroo) bool {
