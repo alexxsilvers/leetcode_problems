@@ -9,8 +9,8 @@ func main() {
 
 func pivotIndex(nums []int) int {
 	sum := 0
-	for _, num := range nums {
-		sum += num
+	for i := range nums {
+		sum += nums[i]
 	}
 
 	leftSum := 0
