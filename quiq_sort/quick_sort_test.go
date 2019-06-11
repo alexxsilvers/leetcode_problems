@@ -1,11 +1,11 @@
-package insertion_sort
+package main
 
 import (
 	"reflect"
 	"testing"
 )
 
-func TestInsertionSort(t *testing.T) {
+func TestQuickSort(t *testing.T) {
 	tests := []struct{
 		list []int
 		want []int
@@ -22,9 +22,9 @@ func TestInsertionSort(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run("", func(t *testing.T) {
-			got := InsertionSort(tt.list)
+			got := QuickSort(tt.list)
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("InsertionSort() want %#v got %#v", tt.want, got)
+				t.Errorf("QuickSort() want %#v got %#v", tt.want, got)
 			}
 		})
 	}

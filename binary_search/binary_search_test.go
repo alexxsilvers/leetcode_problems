@@ -33,6 +33,11 @@ func TestBinarySearch(t *testing.T) {
 			item: 10,
 			want: -1,
 		},
+		{
+			list: []int{10, 1, 2, 10},
+			item: 10,
+			want: 3,
+		},
 	}
 
 	for _, tt := range tests {
