@@ -1,6 +1,9 @@
 package main
 
-import "log"
+import (
+	"log"
+	"math"
+)
 
 // Given an array A of strings made only from lowercase letters,
 // return a list of all characters that show up in all strings within the list (including duplicates).
@@ -14,45 +17,36 @@ func main() {
 	log.Println(commonChars([]string{"acabcddd","bcbdbcbd","baddbadb","cbdddcac","aacbcccd","ccccddda","cababaab","addcaccd"})) // []
 }
 
-type CharInWords struct {
-	words int
-	cnt int
-}
 func commonChars(A []string) []string {
-	charMap := make(map[rune]*CharInWords)
+	cnt := [26]int{}
+	for i := range cnt {
+		cnt[i] = math.MaxUint16
+	}
+
+	cntInWord := [26]int{}
 	for _, word := range A {
-		charInWord := make(map[rune]int)
-		for _, char := range word {
-			if _, ok := charInWord[char]; !ok {
-				charInWord[char] = 0
-			}
-			charInWord[char]++
+		for _, char := range []byte(word) { // compiler trick - here we will not allocate new memory
+			cntInWord[char - 'a']++
 		}
 
-		for char, cnt := range charInWord {
-			charInWords, ok := charMap[char]
-			if ok {
-				charInWords.words++
-				if cnt < charInWords.cnt {
-					charInWords.cnt = cnt
-				}
-			} else {
-				charMap[char] = &CharInWords{
-					words: 1,
-					cnt: cnt,
-				}
+		for i := 0; i < 26; i++ {
+			if cntInWord[i] < cnt[i] {
+				cnt[i] = cntInWord[i]
 			}
+		}
+
+		for i := range cntInWord {
+			cntInWord[i] = 0
 		}
 	}
 
 	result := make([]string, 0)
-	for char, charInWords := range charMap {
-		if charInWords.words == len(A) {
-			for i := 0; i < charInWords.cnt; i++ {
-				result = append(result, string(char))
-			}
+	for i := 0; i < 26; i++ {
+		for j := 0; j < cnt[i]; j++ {
+			result = append(result, string(i + 'a'))
 		}
 	}
 
 	return result
 }
+
