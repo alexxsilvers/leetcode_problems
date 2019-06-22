@@ -42,7 +42,7 @@ func main() {
 }
 
 // solution with O(m * n) runtime and O(m + n) space
-// they will be good6 if we need to store early results in some storage
+// they will be good, if we need to store early results in some storage
 func isToeplitzMatrix(matrix [][]int) bool {
 	if len(matrix) <= 1 || len(matrix[0]) <= 1 {
 		return true
