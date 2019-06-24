@@ -1,11 +1,13 @@
 **Solved with pain**
 
-766. Toeplitz matrix
+1)766. Toeplitz matrix
 
-1089. Duplicate zeros
+2)1089. Duplicate zeros
+
+3)283. Move Zeroes
 
 **Not solved by myself**
 
-888. Fair candy swap
+1)888. Fair candy swap
 
-1093. Statistics from a Large Sample
+2)1093. Statistics from a Large Sample
