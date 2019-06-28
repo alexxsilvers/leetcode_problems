@@ -19,3 +19,5 @@
 5)883. Projection area of 3D shapes
 
 6)498. Diagonal Traverse matrix
+
+7)54. Spiral Traverse matrix
