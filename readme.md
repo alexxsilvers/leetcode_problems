@@ -17,3 +17,5 @@
 4)942. DI String Match
 
 5)883. Projection area of 3D shapes
+
+6)498. Diagonal Traverse matrix
