@@ -6,6 +6,8 @@
 
 3)283. Move Zeroes
 
+4)59. Generate Spiral Matrix
+
 **Not solved by myself**
 
 1)888. Fair candy swap
