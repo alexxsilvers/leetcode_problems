@@ -23,3 +23,5 @@
 6)498. Diagonal Traverse matrix
 
 7)54. Spiral Traverse matrix
+
+8)1101. The earliest moment when everyone become friends(DSU)
