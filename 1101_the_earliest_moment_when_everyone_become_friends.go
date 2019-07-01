@@ -86,42 +86,46 @@ func earliestAcq(logs [][]int, N int) int {
 
 type DisjointSetUnion struct {
 	root    []int
-	size    []int
+	rank    []int
 	maxRank int
 }
 
 func NewDisjointSetUnion(N int) *DisjointSetUnion {
 	set := make([]int, N)
-	size := make([]int, N)
+	rank := make([]int, N)
 	for i := 0; i < N; i++ {
 		set[i] = i
-		size[i] = 1
+		rank[i] = 1
 	}
-	return &DisjointSetUnion{root: set, size: size}
+	return &DisjointSetUnion{root: set, rank: rank}
 }
 
 func (dsu *DisjointSetUnion) find(a int) int {
 	if dsu.root[a] == a {
 		return a
 	} else {
-		v := dsu.find(dsu.root[a])
-		dsu.root[a] = v
-		return v
+		dsu.root[a] = dsu.find(dsu.root[a])
+		return dsu.root[a]
 	}
 }
 
-func (dsu *DisjointSetUnion) union(a int, b int) {
+func (dsu *DisjointSetUnion) union(a int, b int) bool {
 	aRep := dsu.find(a)
 	bRep := dsu.find(b)
-	if aRep != bRep {
-		if dsu.size[aRep] < dsu.size[bRep] {
-			aRep, bRep = bRep, aRep
+	if aRep == bRep {
+		return false
+	} else if dsu.rank[aRep] < dsu.rank[bRep] {
+		dsu.root[aRep] = dsu.root[bRep]
+		dsu.rank[bRep] += dsu.rank[aRep]
+		if dsu.rank[bRep] > dsu.maxRank {
+			dsu.maxRank = dsu.rank[bRep]
 		}
-		dsu.root[bRep] = aRep
-		dsu.size[aRep] += dsu.size[bRep]
-
-		if dsu.size[aRep] > dsu.maxRank {
-			dsu.maxRank = dsu.size[aRep]
+	} else {
+		dsu.root[bRep] = dsu.root[aRep]
+		dsu.rank[aRep] += dsu.rank[bRep]
+		if dsu.rank[aRep] > dsu.maxRank {
+			dsu.maxRank = dsu.rank[aRep]
 		}
 	}
+	return true
 }
