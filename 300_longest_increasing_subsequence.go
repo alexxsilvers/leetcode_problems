@@ -16,8 +16,7 @@ func lengthOfLIS(nums []int) int {
 		return l
 	}
 
-	d := make([]int, l)
-	size := 0
+	d, size := make([]int, l), 0
 	for n := 0; n < l; n++ {
 		i, j := 0, size
 		for i != j {
