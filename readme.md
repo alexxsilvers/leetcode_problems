@@ -27,3 +27,5 @@
 8)1101. The earliest moment when everyone become friends(DSU)
 
 9)334. Increasing triplet subsequence
+
+10)300. Longest increasing subsequence
