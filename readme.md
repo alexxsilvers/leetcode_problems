@@ -33,3 +33,5 @@
 11)1110. Delete nodes and return forest
 
 12)53. Maximum Subarray
+
+13)442. Find All Duplicates in an Array
