@@ -22,9 +22,9 @@ func productExceptSelf(nums []int) []int {
 	}
 
 	tail := 1
-	for i := l - 2; i >= 0; i-- {
-		tail *= nums[i+1]
+	for i := l-1; i >= 0; i-- {
 		out[i] *= tail
+		tail *= nums[i]
 	}
 	return out
 }
