@@ -9,6 +9,8 @@ func main() {
 	log.Println(productExceptSelf([]int{1, 2, 3, 4})) // [24,12,8,6]
 }
 
+// Runtime - O(n)
+// Space - O(1). Except return slice
 func productExceptSelf(nums []int) []int {
 	l := len(nums)
 	if l == 0 {

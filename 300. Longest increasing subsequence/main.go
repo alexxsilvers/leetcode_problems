@@ -1,4 +1,4 @@
-package _00__Longest_increasing_subsequence
+package main
 
 import (
 	"log"

@@ -10,7 +10,7 @@ func main() {
 
 // Runtime - O(n)
 // Space - O(1)
-// Use Gauss formula sum = (1 + array size(last number)) * size / 2
+// Use Gauss formula sum = (1 + size(last number)) * size / 2
 func missingNumber(nums []int) int {
 	s := (len(nums) + 1) * len(nums) / 2
 	for _, n := range nums {

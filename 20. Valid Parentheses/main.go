@@ -25,9 +25,9 @@ func isValid(s string) bool {
 
 	stack := NewStack(len(s))
 	open := map[byte]struct{}{
-		'{': struct{}{},
-		'[': struct{}{},
-		'(': struct{}{},
+		'{': {},
+		'[': {},
+		'(': {},
 	}
 	c := map[byte]byte{
 		'}': '{',
