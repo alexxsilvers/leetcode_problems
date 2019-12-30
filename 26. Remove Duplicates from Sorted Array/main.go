@@ -1,1 +1,48 @@
-package _6__Remove_Duplicates_from_Sorted_Array
+package main
+
+import "fmt"
+
+// Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return
+// the new length.
+//
+// Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1)
+// extra memory.
+// Clarification:
+//
+// Confused why the returned value is an integer but your answer is an array?
+//
+// Note that the input array is passed in by reference, which means modification to the input array will be known
+// to the caller as well.
+func main() {
+	ex1 := []int{0, 0, 0, 1, 1, 2, 3, 3, 4}
+	fmt.Println(removeDuplicates(ex1), ex1) // l = 5 [0,1,2,3]
+
+	ex2 := []int{1, 2, 3}
+	fmt.Println(removeDuplicates(ex2), ex2) // l = 2 [1,2,3]
+
+	ex3 := []int{0, 1, 1, 1, 2, 2, 3, 4, 4, 4}
+	fmt.Println(removeDuplicates(ex3), ex3) // l = 5 [0,1,2,3,4]
+}
+
+func removeDuplicates(nums []int) int {
+	l := len(nums)
+	if l <= 1 {
+		return l
+	}
+
+	s, e, t := 0, 1, 1
+	for e < len(nums) {
+		if nums[s] == nums[e] {
+			l--
+		} else {
+			nums[t] = nums[e]
+			t++
+			s = e
+		}
+
+		e++
+	}
+
+	nums = nums[:l]
+	return l
+}

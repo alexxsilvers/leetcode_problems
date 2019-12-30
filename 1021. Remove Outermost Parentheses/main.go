@@ -1,6 +1,9 @@
 package main
 
-import "log"
+import (
+	"log"
+	"strings"
+)
 
 // A valid parentheses string is either empty (""), "(" + A + ")", or A + B, where A and B are valid
 // parentheses strings, and + represents string concatenation.  For example, "", "()", "(())()", and "(()(()))"
@@ -20,5 +23,21 @@ func main() {
 }
 
 func removeOuterParentheses(S string) string {
+	opened := 0
+	sb := strings.Builder{}
+	for i := 0; i < len(S); i++ {
+		if S[i] == '(' {
+			if opened > 0 {
+				sb.WriteByte('(')
+			}
+			opened++
+		} else {
+			if opened > 1 {
+				sb.WriteByte(')')
+			}
+			opened--
+		}
+	}
 
+	return sb.String()
 }
