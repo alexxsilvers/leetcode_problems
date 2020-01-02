@@ -1,12 +1,8 @@
 package main
 
-import "sort"
-
 // Given two binary search trees root1 and root2.
 // Return a list containing all the integers from both trees sorted in ascending order.
-func main() {
-
-}
+func main() {}
 
 type TreeNode struct {
 	Val   int
@@ -14,37 +10,44 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+// Recursion version
 func getAllElements(root1 *TreeNode, root2 *TreeNode) []int {
-	ret := make([]int, 0)
+	list1 := make([]int, 0)
+	list2 := make([]int, 0)
 
-	getAllValues(root1, &ret)
-	getAllValues(root2, &ret)
+	inorder(&list1, root1)
+	inorder(&list2, root2)
 
-	sort.Ints(ret)
-	return ret
-}
-
-func getAllValues(bTree *TreeNode, numbers *[]int) {
-	if bTree == nil {
-		return
-	}
-
-	*numbers = append(*numbers, bTree.Val)
-
-	getAllValues(bTree.Left, numbers)
-	getAllValues(bTree.Right, numbers)
-}
-
-func mergeChans(chs []<-chan int) chan int {
-	resultCh := make(chan int, len(chs))
-	for _, ch := range chs {
-		select {
-		case val := <-ch:
-			resultCh <- val
+	i, j, ret := 0, 0, make([]int, 0, len(list1)+len(list2))
+	for i < len(list1) && j < len(list2) {
+		if list1[i] < list2[j] {
+			ret = append(ret, list1[i])
+			i++
+		} else {
+			ret = append(ret, list2[j])
+			j++
 		}
 	}
 
-	strconv.Ito
+	for i < len(list1) {
+		ret = append(ret, list1[i])
+		i++
+	}
 
-	return resultCh
+	for j < len(list2) {
+		ret = append(ret, list2[j])
+		j++
+	}
+
+	return ret
+}
+
+func inorder(nums *[]int, root *TreeNode) {
+	if root == nil {
+		return
+	}
+
+	inorder(nums, root.Left)
+	*nums = append(*nums, root.Val)
+	inorder(nums, root.Right)
 }
