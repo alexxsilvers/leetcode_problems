@@ -30,9 +30,12 @@ func main() {
 // LRUCache - is last recenftly used cache
 type LRUCache struct {
 	items map[int]*item
+	head  *item
+	tail  *item
 }
 
 type item struct {
+	ket  int
 	val  int
 	next *item
 	prev *item

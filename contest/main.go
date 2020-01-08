@@ -4,21 +4,17 @@ func main() {
 
 }
 
-func sumZero(n int) []int {
-	s := 0
-	tmp := n
-	ret := make([]int, 0, n)
+func recvCh(chs []<-chan int) chan<- int {
+	recv := make(chan int, len(chs))
 
-	for i := 0; i < n; i++ {
-		if i == n-1 { // last
-			ret = append(ret, s*-1)
-			break
-		}
-
-		tmp -= 1
-		s += tmp
-		ret = append(ret, tmp)
+	for _, ch := range chs {
+		go func(ch <-chan int) {
+			select {
+			case val := <-ch:
+				recv <- val
+			}
+		}(ch)
 	}
 
-	return ret
+	return recv
 }
