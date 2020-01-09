@@ -27,15 +27,16 @@ func main() {
 	log.Println(cache.Get(4)) // returns 4
 }
 
-// LRUCache - is last recenftly used cache
+// LRUCache - is last recently used cache
 type LRUCache struct {
 	items map[int]*item
+	cap   int
 	head  *item
 	tail  *item
 }
 
 type item struct {
-	ket  int
+	key  int
 	val  int
 	next *item
 	prev *item
@@ -43,15 +44,69 @@ type item struct {
 
 // Constructor returns new LRUCache
 func Constructor(capacity int) LRUCache {
+	c := LRUCache{
+		items: make(map[int]*item, capacity),
+		cap:   capacity,
+		head:  &item{},
+		tail:  &item{},
+	}
 
+	c.head.next = c.tail
+	c.tail.prev = c.head
+
+	return c
 }
 
 // Get return value if exist or -1
 func (c *LRUCache) Get(key int) int {
+	item, exist := c.items[key]
+	if exist {
+		c.remove(item)
+		c.add(item)
+		return item.val
+	}
+
 	return -1
 }
 
 // Put set new value
 func (c *LRUCache) Put(key int, value int) {
+	i, exist := c.items[key]
+	if exist {
+		c.remove(i)
+		c.add(i)
+		i.val = value
 
+		return
+	}
+
+	if len(c.items) == c.cap {
+		i := c.head.next
+		c.remove(i)
+		delete(c.items, i.key)
+	}
+
+	item := &item{
+		key: key,
+		val: value,
+	}
+	c.add(item)
+	c.items[key] = item
+}
+
+func (c *LRUCache) add(i *item) {
+	prev := c.tail.prev
+	prev.next = i
+
+	c.tail.prev = i
+	i.prev = prev
+	i.next = c.tail
+}
+
+func (c *LRUCache) remove(i *item) {
+	prev := i.prev
+	next := i.next
+
+	prev.next = next
+	next.prev = prev
 }
