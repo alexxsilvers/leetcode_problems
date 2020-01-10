@@ -6,7 +6,8 @@ import "log"
 // return an array output such that output[i] is equal to
 // the product of all the elements of nums except nums[i].
 func main() {
-	log.Println(productExceptSelf([]int{1, 2, 3, 4})) // [24,12,8,6]
+	log.Println(productExceptSelf([]int{1, 2, 3, 4}))    // [24,12,8,6]
+	log.Println(productExceptSelf([]int{1, 2, 3, 4, 5})) // [24, 30, 40, 60, 120]
 }
 
 // Runtime - O(n)
@@ -24,7 +25,7 @@ func productExceptSelf(nums []int) []int {
 	}
 
 	tail := 1
-	for i := l-1; i >= 0; i-- {
+	for i := l - 1; i >= 0; i-- {
 		out[i] *= tail
 		tail *= nums[i]
 	}
