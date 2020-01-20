@@ -10,7 +10,7 @@ func main() {
 		{Val: 2, Next: &ListNode{Val: 6}},
 	}
 
-	res := mergeKListsBruteForce(lists)
+	res := mergeKListsHeap(lists)
 
 	spew.Dump(res)
 	// 1 -> 1 -> 2 -> 3 -> 4 -> 4 -> 5 -> 6
