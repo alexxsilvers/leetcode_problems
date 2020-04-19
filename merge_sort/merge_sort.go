@@ -1,29 +1,10 @@
-package main
-
-import (
-	"log"
-	"math/rand"
-	"time"
-)
-
-func main() {
-	l1 := generateSlice(20)
-	MergeSort(l1)
-	log.Println(l1)
-}
-
-func generateSlice(size int) []int {
-	nums := make([]int, size, size)
-	rand.Seed(time.Now().UnixNano())
-
-	for i := 0; i < size; i++ {
-		nums[i] = rand.Intn(999) - rand.Intn(999)
-	}
-
-	return nums
-}
+package merge_sort
 
 func MergeSort(nums []int) {
+	if len(nums) <= 1 {
+		return
+	}
+
 	memo := make([]int, len(nums))
 	mergeSort(nums, memo, 0, len(nums)-1)
 }
