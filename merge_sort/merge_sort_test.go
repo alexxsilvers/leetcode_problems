@@ -6,36 +6,40 @@ import (
 )
 
 func TestMergeSort(t *testing.T) {
-	var (
-		nums   []int
-		result []int
-	)
-
-	nums = []int{6, 5, 4, 3, 2, 1}
-	result = []int{1, 2, 3, 4, 5, 6}
-	MergeSort(nums)
-	if !reflect.DeepEqual(nums, result) {
-		t.Errorf("got [%v], want [%v]", nums, result)
+	tests := []struct {
+		name string
+		nums []int
+		want []int
+	}{
+		{
+			name: "with negative numbers",
+			nums: []int{0, 15, 4, -100},
+			want: []int{-100, 0, 4, 15},
+		},
+		{
+			name: "empty input array",
+			nums: []int{},
+			want: []int{},
+		},
+		{
+			name: "same number is returned more than once",
+			nums: []int{47, 10, 7, 100, 55, 47},
+			want: []int{7, 10, 47, 47, 55, 100},
+		},
+		{
+			name: "corner case for input with 1 num",
+			nums: []int{456},
+			want: []int{456},
+		},
 	}
 
-	nums = []int{0, 15, 4, 15, -100, -100}
-	result = []int{-100, -100, 0, 4, 15, 15}
-	MergeSort(nums)
-	if !reflect.DeepEqual(nums, result) {
-		t.Errorf("got [%v], want [%v]", nums, result)
-	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			MergeSort(tt.nums)
 
-	nums = make([]int, 0)
-	result = []int{}
-	MergeSort(nums)
-	if !reflect.DeepEqual(nums, result) {
-		t.Errorf("got [%v], want [%v]", nums, result)
-	}
-
-	nums = nil
-	result = nil
-	MergeSort(nums)
-	if !reflect.DeepEqual(nums, result) {
-		t.Errorf("got [%v], want [%v]", nums, result)
+			if !reflect.DeepEqual(tt.nums, tt.want) {
+				t.Errorf("want [%v], got [%v]", tt.want, tt.nums)
+			}
+		})
 	}
 }
