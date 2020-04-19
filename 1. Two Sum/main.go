@@ -12,18 +12,14 @@ func main() {
 }
 
 func twoSum(nums []int, target int) []int {
-	start := 0
-	memo := make(map[int]int, len(nums))
-
-	for start < len(nums) {
-		ind, exist := memo[target-nums[start]]
-		if exist {
-			return []int{start, ind}
+	memo := make(map[int]int)
+	for i, n := range nums {
+		ind, ok := memo[target-n]
+		if ok {
+			return []int{i, ind}
 		} else {
-			memo[nums[start]] = start
+			memo[n] = i
 		}
-
-		start++
 	}
 
 	return []int{-1, -1}

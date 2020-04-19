@@ -19,16 +19,11 @@ func main() {
 // Runtime - O(n)
 // Space - O(1)
 func maxProfit(prices []int) int {
-	if len(prices) <= 1 {
-		return 0
-	}
-
-	total := 0
-	for i := 0; i < len(prices)-1; i++ {
-		if prices[i] < prices[i+1] {
-			total += prices[i+1] - prices[i]
+	max := 0
+	for i := 1; i < len(prices); i++ {
+		if prices[i] > prices[i-1] {
+			max += prices[i] - prices[i-1]
 		}
 	}
-
-	return total
+	return max
 }
