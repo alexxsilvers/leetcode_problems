@@ -1,5 +1,63 @@
 package merge_sort
 
+func MergeSortStupid(nums []int) {
+	if len(nums) <= 1 {
+		return
+	}
+
+	mergeSortStupid(nums, 0, len(nums)-1)
+}
+
+func mergeSortStupid(nums []int, low int, high int) {
+	if high <= low {
+		return
+	}
+
+	mid := low + (high-low)/2
+
+	mergeSortStupid(nums, low, mid)
+	mergeSortStupid(nums, mid+1, high)
+
+	mergeStupid(nums, low, mid, high)
+}
+
+func mergeStupid(nums []int, low, mid, high int) {
+	left := make([]int, 0, mid-low+1)
+	right := make([]int, 0, high-mid)
+
+	for i := low; i <= mid; i++ {
+		left = append(left, nums[i])
+	}
+	for k := mid + 1; k <= high; k++ {
+		right = append(right, nums[k])
+	}
+
+	i, j, k := 0, 0, low
+	for i < len(left) && j < len(right) {
+		if left[i] < right[j] {
+			nums[k] = left[i]
+			i++
+			k++
+		} else {
+			nums[k] = right[j]
+			j++
+			k++
+		}
+	}
+
+	for i < len(left) {
+		nums[k] = left[i]
+		i++
+		k++
+	}
+
+	for j < len(right) {
+		nums[k] = right[j]
+		j++
+		k++
+	}
+}
+
 func MergeSort(nums []int) {
 	if len(nums) <= 1 {
 		return
