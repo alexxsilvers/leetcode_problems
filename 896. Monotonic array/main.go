@@ -19,23 +19,38 @@ func main() {
 }
 
 func isMonotonic(A []int) bool {
-	if len(A) == 1 {
+	if len(A) <= 1 {
 		return true
 	}
 
-	// check first and last elements to determine monotone direction
-	if A[0] >= A[len(A)-1] { // it is monotone decreasing
-		for i := 1; i < len(A); i++ {
-			if A[i] > A[i-1] {
-				return false
-			}
-		}
-	} else { // it is monotone increasing
+	if A[0] < A[len(A)-1] { // monotonic increasing
 		for i := 1; i < len(A); i++ {
 			if A[i] < A[i-1] {
 				return false
 			}
 		}
+	} else { // monotonic decreasing
+		for i := 1; i < len(A); i++ {
+			if A[i] > A[i-1] {
+				return false
+			}
+		}
 	}
+
 	return true
+}
+
+func isMonotonicSimple(A []int) bool {
+	monotonicDecreasing := true
+	monotonicIncreasing := true
+	for i := 0; i < len(A)-1; i++ {
+		if A[i] < A[i+1] {
+			monotonicIncreasing = false
+		}
+		if A[i] > A[i+1] {
+			monotonicDecreasing = false
+		}
+	}
+
+	return monotonicDecreasing || monotonicIncreasing
 }

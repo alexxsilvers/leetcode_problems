@@ -28,6 +28,7 @@ func main() {
 	log.Println(rangeSumBST(ex1, 7, 15)) // 32
 }
 
+// TreeNode definition of the node
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -35,28 +36,20 @@ type TreeNode struct {
 }
 
 func rangeSumBST(root *TreeNode, L int, R int) int {
-	return dfs(root, L, R)
-}
-
-func dfs(root *TreeNode, L, R int) int {
 	if root == nil {
 		return 0
 	}
 
-	left := dfs(root.Left, L, R)
-	right := dfs(root.Right, L, R)
+	left := rangeSumBST(root.Left, L, R)
+	right := rangeSumBST(root.Right, L, R)
 
-	s := 0
-	if inBorder(root.Val, L, R) {
-		s += root.Val
+	if inBounds(root.Val, L, R) {
+		return root.Val + left + right
 	}
 
-	return s + left + right
+	return left + right
 }
 
-func inBorder(a, L, R int) bool {
-	if a >= L && a <= R {
-		return true
-	}
-	return false
+func inBounds(v, L, R int) bool {
+	return v >= L && v <= R
 }
