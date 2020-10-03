@@ -1,9 +1,14 @@
 package main
 
 func main() {
+
 }
 
-
+/**
+ * Your ParkingSystem object will be instantiated and called as such:
+ * obj := Constructor(big, medium, small);
+ * param_1 := obj.AddCar(carType);
+ */
 
 //
 //func minOperations(nums []int) int {
