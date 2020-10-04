@@ -3,12 +3,33 @@ package main
 func main() {
 
 }
+//
+//func specialArray(nums []int) int {
+//	m := make(map[int]int)
+//	for _, num := range nums {
+//		m[num]++
+//	}
+//
+//	x := len(nums)
+//
+//	for k, v := range m {
+//		if k < x {
+//			x -= v
+//		}
+//	}
+//
+//	return x
+//}
 
 /**
- * Your ParkingSystem object will be instantiated and called as such:
- * obj := Constructor(big, medium, small);
- * param_1 := obj.AddCar(carType);
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
  */
+
 
 //
 //func minOperations(nums []int) int {
