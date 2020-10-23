@@ -1,8 +1,84 @@
 package main
 
-func main() {
+import (
+	"bufio"
+	"container/heap"
+	"os"
+	"strings"
+)
 
+func main() {
+	reader := bufio.NewReader(os.Stdin)
+	t, _, _ := reader.ReadLine()
+	dates, _, _ := reader.ReadLine()
+
+	solution(string(t), strings.Split(string(dates), " "))
 }
+
+func solution(dateType string, dates []string) {
+	
+}
+
+func tt(s string) int {
+	cnt := 0
+	memo := make(map[byte]int)
+	for i := 0; i < len(s); i++ {
+		memo[s[i]]++
+	}
+
+	var priorityQueue PQ
+	for _, val := range memo {
+		priorityQueue = append(priorityQueue, val)
+	}
+
+	heap.Init(&priorityQueue)
+
+	for priorityQueue.Len() > 0 {
+		mostFrequent := priorityQueue.Top()
+		priorityQueue.Pop()
+
+		if priorityQueue.Len() == 0 {
+			return cnt
+		}
+
+		if mostFrequent == priorityQueue.Top() {
+			if mostFrequent > 1 {
+				priorityQueue.Push(mostFrequent - 1)
+			}
+			cnt++
+		}
+	}
+
+	return cnt
+}
+
+type PQ []int
+
+func (pq PQ) Len() int {
+	return len(pq)
+}
+func (pq PQ) Less(i, j int) bool {
+	return pq[i] < pq[j]
+}
+func (pq PQ) Top() int {
+	return pq[len(pq)-1]
+}
+func (pq *PQ) Pop() interface{} {
+	old := *pq
+	n := len(old)
+	item := old[n-1]
+	*pq = old[0 : n-1]
+	return item
+}
+func (pq *PQ) Push(x interface{}) {
+	item := x.(int)
+	*pq = append(*pq, item)
+}
+
+func (pq PQ) Swap(i, j int) {
+	pq[i], pq[j] = pq[j], pq[i]
+}
+
 //
 //func specialArray(nums []int) int {
 //	m := make(map[int]int)
@@ -29,7 +105,6 @@ func main() {
  *     Right *TreeNode
  * }
  */
-
 
 //
 //func minOperations(nums []int) int {

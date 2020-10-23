@@ -36,7 +36,9 @@ type TreeNode struct {
 
 func insertIntoBST(root *TreeNode, val int) *TreeNode {
 	if root == nil {
-		return &TreeNode{Val: val}
+		return &TreeNode{
+			Val: val,
+		}
 	}
 
 	if val < root.Val {
@@ -47,3 +49,4 @@ func insertIntoBST(root *TreeNode, val int) *TreeNode {
 
 	return root
 }
+
